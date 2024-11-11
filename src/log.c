@@ -40,7 +40,7 @@ static struct {
 
 
 static const char *level_strings[] = {
-  "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"
+  "REAL TALK", "LOWKEY", "VIBE_CHECK", "SUS", "BIG YIKES", "CRISIS"
 };
 
 #ifdef LOG_USE_COLOR
@@ -138,9 +138,22 @@ static void init_event(log_Event *ev, void *udata) {
 
 
 void log_log(int level, const char *file, int line, const char *fmt, ...) {
+
+  char* tmp = file;
+  char* last_instance = file;
+  int count = 0;
+  while(*tmp){
+    if(count > 1024)
+      break;
+    if(*tmp == '/' || *tmp == '\\')
+      last_instance = tmp;
+    tmp++;
+    count++;
+  }
+
   log_Event ev = {
     .fmt   = fmt,
-    .file  = file,
+    .file  = last_instance,
     .line  = line,
     .level = level,
   };
