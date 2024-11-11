@@ -150,6 +150,7 @@ void log_log(int level, const char *file, int line, const char *fmt, ...) {
     tmp++;
     count++;
   }
+  last_instance++;
 
   log_Event ev = {
     .fmt   = fmt,
