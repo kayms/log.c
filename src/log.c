@@ -39,10 +39,6 @@ static struct {
 } L;
 
 
-static const char *level_strings[] = {
-  "REAL TALK", "LOWKEY", "VIBE_CHECK", "SUS", "BIG YIKES", "CRISIS"
-};
-
 #ifdef LOG_USE_COLOR
 static const char *level_colors[] = {
   "\x1b[94m", "\x1b[36m", "\x1b[32m", "\x1b[33m", "\x1b[31m", "\x1b[35m"
@@ -61,7 +57,7 @@ static void stdout_callback(log_Event *ev) {
 #else
   fprintf(
     ev->udata, "%s %-5s %s:%d: ",
-    buf, level_strings[ev->level], ev->file, ev->line);
+    buf, log_level_strings[ev->level], ev->file, ev->line);
 #endif
   vfprintf(ev->udata, ev->fmt, ev->ap);
   fprintf(ev->udata, "\n");
@@ -74,7 +70,7 @@ static void file_callback(log_Event *ev) {
   buf[strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", ev->time)] = '\0';
   fprintf(
     ev->udata, "%s %-5s %s:%d: ",
-    buf, level_strings[ev->level], ev->file, ev->line);
+    buf, log_level_strings[ev->level], ev->file, ev->line);
   vfprintf(ev->udata, ev->fmt, ev->ap);
   fprintf(ev->udata, "\n");
   fflush(ev->udata);
@@ -92,7 +88,7 @@ static void unlock(void) {
 
 
 const char* log_level_string(int level) {
-  return level_strings[level];
+  return log_level_strings[level];
 }
 
 

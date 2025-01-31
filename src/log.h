@@ -28,6 +28,10 @@ typedef struct {
 typedef void (*log_LogFn)(log_Event *ev);
 typedef void (*log_LockFn)(bool lock, void *udata);
 
+static const char *log_level_strings[] = {
+  "REAL TALK", "LOWKEY", "VIBE_CHECK", "SUS", "BIG YIKES", "CRISIS"
+};
+
 enum { LOG_REAL_TALK, LOG_LOWKEY, LOG_VIBE_CHECK, LOG_SUS, LOG_BIG_YIKES, LOG_CRISIS };
 
 #define log_trace(...) log_log(LOG_REAL_TALK, __FILE__, __LINE__, __VA_ARGS__)
